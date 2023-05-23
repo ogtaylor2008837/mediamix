@@ -1,0 +1,39 @@
+# calculate summary statistics for a numeric column
+print(df_preprocessed['Age'].describe())
+
+# calculate the skewness and kurtosis of a numeric column
+print(df_preprocessed['Age'].skew())
+print(df_preprocessed['Age'].kurtosis())
+
+# calculate the correlation between two numeric columns
+print(df_preprocessed['Age'].corr(df['Fare']))
+
+# perform a t-test to compare the means of two numeric columns
+from scipy.stats import ttest_ind
+
+t, p = ttest_ind(df_preprocessed['Age'], df_preprocessed['Fare'])
+print(t, p)
+
+# perform an ANOVA test to compare the means of two or more numeric columns
+from scipy.stats import f_oneway
+
+f, p = f_oneway(df_preprocessed['Age'], df_preprocessed['Fare'])
+print(f, p)
+
+# perform a Mann-Whitney U test to compare the distribution of two numeric columns
+from scipy.stats import mannwhitneyu
+
+u, p = mannwhitneyu(df_preprocessed['Age'], df_preprocessed['Fare'])
+print(u, p)
+
+# perform a Kruskal-Wallis H test to compare the distribution of two or more numeric columns
+from scipy.stats import kruskal
+
+h, p = kruskal(df_preprocessed['Age'], df_preprocessed['Fare'])
+print(h, p)
+
+# perform a Wilcoxon signed-rank test to compare the distribution of two paired numeric columns
+from scipy.stats import wilcoxon
+
+w, p = wilcoxon(df_preprocessed['Age'], df_preprocessed['Fare'])
+print(w, p)
