@@ -1,0 +1,166 @@
+# import necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# load the dataset
+df = pd.read_csv("titanic.csv")
+
+# print the first few rows of the DataFrame
+print(df.head())
+
+# print the DataFrame's shape
+print(df.shape)
+
+# print the DataFrame's data types
+print(df.dtypes)
+
+# check for missing values
+print(df.isnull().sum())
+
+# visualize the distribution of a numeric column
+plt.hist(df['Age'])
+plt.show()
+
+# visualize the distribution of a categorical column
+df['Sex'].value_counts().plot(kind='bar')
+plt.show()
+
+# calculate basic statistics for a numeric column
+print(df['Fare'].describe())
+
+# calculate the correlation between two numeric columns
+print(df['Fare'].corr(df['Survived']))
+
+# group the data by a categorical column and calculate statistics
+grouped_df = df.groupby('Pclass')['Survived'].mean()
+print(grouped_df)
+
+# create a scatter plot to visualize the relationship between two numeric columns
+plt.scatter(df['Age'], df['Fare'])
+plt.xlabel('Age')
+plt.ylabel('Fare')
+plt.show()
+
+# create a box plot to visualize the distribution of a numeric column
+plt.boxplot(df['Fare'])
+plt.ylabel('Fare')
+plt.show()
+
+# create a bar plot to visualize the mean of a numeric column for each category of a categorical column
+df.groupby('Sex')['Age'].mean().plot(kind='bar')
+plt.ylabel('Average Age')
+plt.show()
+
+# create a pivot table to summarize the data
+pivot_table = df.pivot_table(index='Sex', columns='Pclass', values='Fare', aggfunc='mean')
+print(pivot_table)
+
+# create a heatmap to visualize the pivot table
+plt.pcolor(pivot_table, cmap='Reds')
+plt.colorbar()
+plt.show()
+
+# create a pairplot to visualize the relationships between multiple numeric columns
+import seaborn as sns
+sns.pairplot(df, vars=['Age', 'Fare', 'SibSp'])
+plt.show()
+
+# create a bar plot to visualize the count of a categorical column
+df['Embarked'].value_counts().plot(kind='bar')
+plt.ylabel('Count')
+plt.show()
+
+# create a countplot to visualize the count of a categorical column by the categories of another categorical column
+sns.countplot(x='Sex', hue='Pclass', data=df)
+plt.show()
+
+# create a point plot to visualize the mean of a numeric column by the categories of a categorical column
+sns.pointplot(x='Sex', y='Age', data=df)
+plt.ylabel('Average Age')
+plt.show()
+
+# create a violin plot to visualize the distribution of a numeric column by the categories of a categorical column
+sns.violinplot(x='Sex', y='Age', data=df)
+plt.ylabel('Age')
+plt.show()
+
+# create a box plot to visualize the distribution of a numeric column by the categories of a categorical column
+sns.boxplot(x='Sex', y='Age', data=df)
+plt.ylabel('Age')
+plt.show()
+
+# create a swarm plot to visualize the distribution of a numeric column by the categories of a categorical column
+sns.swarmplot(x='Sex', y='Age', data=df)
+plt.ylabel('Age')
+plt.show()
+
+# create a faceting grid to visualize the distribution of multiple numeric columns by the categories of a categorical column
+g = sns.FacetGrid(df, col='Sex')
+g.map(plt.hist, 'Age')
+plt.show()
+
+# create a heatmap to visualize the correlation between multiple numeric columns
+plt.figure(figsize=(12, 8))
+sns.heatmap(df.corr(), cmap='RdYlGn', annot=True)
+plt.show()
+
+# create a lag plot to check for autocorrelation in a numeric column
+from pandas.plotting import lag_plot
+lag_plot(df['Fare'])
+plt.show()
+
+# create an autocorrelation plot to visualize the autocorrelation in a numeric column
+from pandas.plotting import autocorrelation_plot
+autocorrelation_plot(df['Fare'])
+plt.show()
+
+# create a scatter plot matrix to visualize the relationships between multiple numeric columns
+from pandas.plotting import scatter_matrix
+scatter_matrix(df[['Age', 'Fare', 'SibSp']], alpha=0.2, figsize=(6, 6))
+plt.show()
+
+# create a regression plot to visualize the relationship between two numeric columns
+sns.regplot(x='Age', y='Fare', data=df)
+plt.show()
+
+# create a barplot to visualize the mean of a numeric column by the categories of a categorical column
+sns.barplot(x='Sex', y='Age', data=df)
+plt.ylabel('Average Age')
+plt.show()
+
+# create a pointplot to visualize the mean and confidence interval of a numeric column by the categories of a categorical column
+sns.pointplot(x='Sex', y='Age', data=df, ci=95)
+plt.ylabel('Average Age')
+plt.show()
+
+# create a lmplot to visualize the relationship between two numeric columns and the categories of a categorical column
+sns.lmplot(x='Age', y='Fare', hue='Sex', data=df)
+plt.show()
+
+# create a factorplot to visualize the distribution of a numeric column by the categories of a categorical column
+sns.factorplot(x='Sex', y='Age', data=df)
+plt.ylabel('Average Age')
+plt.show()
+
+# create a boxenplot to visualize the distribution of a numeric column by the categories of a categorical column
+sns.boxenplot(x='Sex', y='Age', data=df)
+plt.ylabel('Age')
+plt.show()
+
+# create a distplot to visualize the distribution of a numeric column
+sns.distplot(df['Fare'])
+plt.show()
+
+# create a kdeplot to visualize the kernel density estimate of a numeric column
+sns.kdeplot(df['Fare'])
+plt.show()
+
+# create a rugplot to visualize the distribution of a numeric column
+sns.rugplot(df['Fare'])
+plt.show()
+
+# create a jointplot to visualize the relationship between two numeric columns and their distributions
+sns.jointplot(x='Age', y='Fare', data=df)
+plt.show()
