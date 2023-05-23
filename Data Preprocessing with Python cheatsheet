@@ -1,0 +1,56 @@
+# create a copy of the original DataFrame
+df_preprocessed = df.copy()
+
+# handle missing values in the DataFrame
+df_preprocessed['Age'].fillna(df_preprocessed['Age'].median(), inplace=True)
+df_preprocessed.dropna(inplace=True)
+
+# encode categorical variables using one-hot encoding
+df_preprocessed = pd.get_dummies(df_preprocessed, columns=['Sex', 'Pclass'], prefix=['sex', 'pclass'])
+
+# standardize the values of a numeric column
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+df_preprocessed['Age_scaled'] = scaler.fit_transform(df_preprocessed[['Age']])
+
+# normalize the values of a numeric column
+from sklearn.preprocessing import Normalizer
+
+normalizer = Normalizer()
+df_preprocessed['Age_normalized'] = normalizer.fit_transform(df_preprocessed[['Age']])
+
+# bin the values of a numeric column
+from sklearn.preprocessing import KBinsDiscretizer
+
+discretizer = KBinsDiscretizer(n_bins=3, encode='ordinal')
+df_preprocessed['Age_binned'] = discretizer.fit_transform(df_preprocessed[['Age']])
+
+# apply a min-max scaling to a numeric column
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+df_preprocessed['Age_scaled'] = scaler.fit_transform(df_preprocessed[['Age']])
+
+# apply a robust scaling to a numeric column
+from sklearn.preprocessing import RobustScaler
+
+scaler = RobustScaler()
+df_preprocessed['Age_scaled'] = scaler.fit_transform(df_preprocessed[['Age']])
+
+# apply a power transformation to a numeric column
+from sklearn.preprocessing import PowerTransformer
+
+transformer = PowerTransformer(method='yeo-johnson')
+df_preprocessed['Age_transformed'] = transformer.fit_transform(df_preprocessed[['Age']])
+
+# apply a quantile transformation to a numeric column
+from sklearn.preprocessing import QuantileTransformer
+
+transformer = QuantileTransformer(output_distribution='normal')
+df_preprocessed['Age_transformed'] = transformer.fit_transform(df_preprocessed[['Age']])
+
+# apply a box-cox transformation to a numeric column
+from scipy.stats import boxcox
+
+df_preprocessed['Age_transformed'], lambda_ = boxcox(df_preprocessed['Age'])
